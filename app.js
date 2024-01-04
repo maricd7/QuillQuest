@@ -1,10 +1,17 @@
 const express = require('express'); 
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+const env = require('dotenv').config();
 //express app 
 const app = express();
 
+//connect to mongodb
+const pass=process.env.USER_PASSWORD;
+const dbURI = `mongodb+srv://user:${pass}@cluster0.g0bxgqf.mongodb.net/?retryWrites=true&w=majority`;
+mongoose.connect(dbURI)
+.then((result)=>app.listen(8008))
+.catch((err)=>console.log(err))
 //register view engine
-
 app.set('view engine', 'ejs')
 
 //listen for req
